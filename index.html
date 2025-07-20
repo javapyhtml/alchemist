@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Alchemistry Game ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sparkle {
+            animation: sparkle 0.5s ease;
+        }
+
+        @keyframes sparkle {
+            0% {
+                box-shadow: 0 0 10px 5px rgba(255, 215, 0, 0.8);
+            }
+
+            100% {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-r from-purple-200 to-pink-200 min-h-screen flex flex-col p-4 relative">
+
+    <button onclick="resetGame()"
+        class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">Reset</button>
+
+    <h1 class="text-4xl font-extrabold text-purple-800 mb-6 text-center">✨ Alchemistry Game ✨</h1>
+
+    <div class="flex flex-col gap-6 w-full max-w-7xl mx-auto">
+        <!-- Combine Zone + SpecialCard -->
+        <div class="flex gap-6">
+            <!-- Combine Zone -->
+            <div class="flex-1 bg-white bg-opacity-70 rounded-2xl shadow-xl p-4 flex flex-col items-center">
+                <h2 class="text-2xl font-semibold text-pink-700 mb-4">🔮 Combine Zone</h2>
+                <div id="combineDisplay" class="flex items-center text-3xl font-semibold text-gray-800 mb-4">
+                    <div id="selectedElements" class="flex items-center gap-2"></div>
+                    <span class="mx-2">=</span>
+                    <span id="result" class="mx-2 text-pink-700">?</span>
+                </div>
+                <button class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition"
+                    onclick="mixElements()">Mix!</button>
+                <p class="mt-4 text-green-700 font-medium" id="message"></p>
+            </div>
+
+            <!-- Special Card -->
+            <div id="specialCard" class="flex flex-col items-center justify-center max-w-sm">
+                <div
+                    class="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col hover:shadow-2xl transition-all duration-500 shadow-xl bg-white">
+                    <div class="text-gray-500 group-hover:scale-105 transition-all">
+                        <img src="/face.jpg" width="100px" height="100px">
+                    </div>
+                    <div class="group-hover:pb-10 transition-all duration-500 delay-200">
+                        <h1 class="font-semibold text-gray-700">Sooyeon Lee</h1>
+                        <p class="text-gray-500 text-sm">@Junior_developer</p>
+                    </div>
+                    <div
+                        class="flex items-center transition-all duration-500 delay-200 group-hover:bottom-3 -bottom-full absolute gap-2 justify-evenly w-full">
+                        <div
+                            class="flex gap-3 text-2xl bg-gray-700 text-white p-1 hover:p-2 transition-all duration-500 delay-200 rounded-full shadow-sm">
+                            <a class="hover:scale-110 transition-all duration-500 delay-200"
+                                href="https://github.com/javapyhtml">
+                                <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+                                    <path
+                                        d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0138.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a class="hover:scale-110 transition-all duration-500 delay-200"
+                                href="mailto:javapyhtml@gmail.com">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <path d="M22 6l-10 7L2 6"></path>
+                                </svg>
+                            </a>
+                            <a class="hover:scale-110 transition-all duration-500 delay-200"
+                                href="https://prxgramming.notion.site/About-Me-115df1073a3380f9a981f68639579746?source=copy_link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0,0,256,256">
+                                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                        stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                        stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                        <g transform="scale(5.33333,5.33333)">
+                                            <path
+                                                d="M10.849,10.643c1.308,1.063 1.799,0.982 4.256,0.818l23.161,-1.391c0.492,0 0.083,-0.49 -0.081,-0.571l-3.846,-2.781c-0.737,-0.572 -1.719,-1.227 -3.601,-1.064l-22.426,1.634c-0.818,0.081 -0.981,0.49 -0.655,0.818zM12,16.165v24.125c0,1.296 0.649,1.782 2.112,1.702l25.262,-1.458c1.463,-0.08 1.626,-0.973 1.626,-2.026v-23.963c0,-1.051 -0.406,-1.619 -1.3,-1.538l-26.4,1.538c-0.974,0.081 -1.3,0.568 -1.3,1.62zM37.441,16.724c0.166,0.746 0,1.491 -0.747,1.575l-1.242,0.247v18.213c-1.078,0.579 -2.072,0.91 -2.9,0.91c-1.326,0 -1.659,-0.414 -2.652,-1.655l-8.12,-12.749v12.335l2.57,0.579c0,0 0,1.49 -2.074,1.49l-5.715,0.331c-0.166,-0.331 0,-1.159 0.579,-1.324l1.492,-0.414v-16.308l-2.071,-0.166c-0.167,-0.746 0.247,-1.821 1.408,-1.905l6.131,-0.413l8.451,12.915v-11.425l-2.155,-0.247c-0.166,-0.912 0.497,-1.574 1.325,-1.655zM6.515,5.102l23.124,-1.703c2.84,-0.243 3.571,-0.08 5.355,1.216l7.382,5.188c1.218,0.892 1.624,1.134 1.624,2.107v28.455c0,1.783 -0.649,2.838 -2.921,2.999l-26.855,1.622c-1.705,0.081 -2.517,-0.162 -3.409,-1.297l-5.436,-7.053c-0.974,-1.298 -1.379,-2.269 -1.379,-3.405v-25.294c0,-1.458 0.649,-2.674 2.515,-2.835z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory -->
+        <div class="flex-1 bg-white bg-opacity-70 rounded-2xl shadow-xl p-4">
+            <h2 class="text-2xl font-semibold text-purple-700 mb-4">🧪 Inventory</h2>
+            <div id="inventory" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+        </div>
+    </div>
+
+
+    <!-- 조합노트 버튼 (화면 오른쪽 아래 고정) -->
+    <button onclick="showCombinationNote()"
+        class="fixed bottom-4 right-4 bg-purple-600 text-white rounded-full p-3 shadow-lg hover:bg-purple-700">
+        📓 조합 노트
+    </button>
+
+    <!-- 조합노트 모달 -->
+    <div id="combinationNoteModal"
+        class="fixed bottom-0 right-0 bg-white rounded-tl-xl shadow-xl w-80 max-h-[80vh] overflow-y-auto hidden transform translate-y-full transition duration-300 z-40">
+        <div class="relative p-4">
+            <button onclick="closeCombinationNote()"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+            <h2 class="text-center text-lg font-bold mb-2">📓 조합 노트</h2>
+            <div id="combinationList" class="space-y-2"></div>
+            <div id="pagination" class="flex justify-center space-x-2 mt-2"></div>
+        </div>
+    </div>
+
+
+
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div id="modalContent"
+            class="bg-white rounded-2xl shadow-lg p-6 text-center w-48 h-48 flex flex-col items-center justify-center">
+            <div id="modalEmoji" class="text-5xl mb-2"></div>
+            <div id="modalText" class="text-lg font-semibold text-gray-800"></div>
+        </div>
+    </div>
+
+    <script>
+        const initialElements = [
+            { name: 'Lee', emoji: '🧑‍💻', singleUse: true },
+            { name: 'Soo', emoji: '👩‍💻', singleUse: true },
+            { name: 'Yeon', emoji: '👩‍💻', singleUse: true },
+            { name: 'Water', emoji: '💧' },
+            { name: 'Fire', emoji: '🔥' },
+            { name: 'Air', emoji: '🌬️' },
+            { name: 'Earth', emoji: '🌱' },
+            { name: 'Sun', emoji: '☀️' }
+        ];
+
+        const originalCombinations = {
+            'Lee+Soo+Yeon': { name: 'Special', emoji: '⭐', singleUse: true },
+            'Air+Energy': { name: 'Storm', emoji: '⛈️' },
+            'Air+Fire': { name: 'Energy', emoji: '⚡' },
+            'Air+Fire+Stone': { name: 'Factory', emoji: '🏭' },
+            'Air+Lava': { name: 'Smoke', emoji: '💨' },
+            'Air+Lava+Water': { name: 'Hurricane', emoji: '🌪️' },
+            'Air+Plant+Stone': { name: 'House', emoji: '🏡' },
+            'Air+Water': { name: 'Rain', emoji: '🌧️' },
+            'Ash+Life': { name: 'Wizard', emoji: '🧙‍♂️' },
+            'Clay+Life': { name: 'Human', emoji: '🧍' },
+            'Energy+Metal': { name: 'Machine', emoji: '⚙️' },
+            'Energy+Metal+Plant': { name: 'Cyborg', emoji: '🤖' },
+            'Energy+Metal+Time': { name: 'Robot v2', emoji: '🤖' },
+            'Energy+Water+Plant': { name: 'Tree', emoji: '🌳' },
+            'Earth+Fire': { name: 'Stone', emoji: '🪨' },
+            'Fire+Glass+Metal': { name: 'Jewel', emoji: '💎' },
+            'Fire+Metal+Stone': { name: 'Sword', emoji: '⚔️' },
+            'Fire+Mud': { name: 'Brick', emoji: '🧱' },
+            'Fire+Plant': { name: 'Ash', emoji: '🍂' },
+            'Fire+Sand+Energy': { name: 'Lens', emoji: '🔍' },
+            'Fire+Water': { name: 'Steam', emoji: '💨' },
+            'Fire+Earth': { name: 'Lava', emoji: '🌋' },
+            'Fire+Wood': { name: 'Coal', emoji: '🪵' },
+            'Gun+Time': { name: 'Laser', emoji: '🔦' },
+            'Lava+Stone': { name: 'Metal', emoji: '🔪' },
+            'Lava+Water+Air': { name: 'Mist', emoji: '🌫️' },
+            'Machine+Metal': { name: 'Robot', emoji: '🤖' },
+            'Metal+Tool': { name: 'Weapon', emoji: '⚔️' },
+            'Fire+Metal+Wood': { name: 'Shield', emoji: '🛡️' },
+            'Mud+Plant': { name: 'Swamp', emoji: '🪓' },
+            'Mud+Plant+Water': { name: 'Mushroom', emoji: '🍄' },
+            'Plant+Energy': { name: 'Flower', emoji: '🌸' },
+            'Plant+Stone': { name: 'Wood', emoji: '🪵' },
+            'Plant+Stone+Water': { name: 'Garden', emoji: '🌼' },
+            'Plant+Water': { name: 'Algae', emoji: '🍀' },
+            'Energy+Robot+Time': { name: 'AI', emoji: '🧠' },
+            'Energy+Sand': { name: 'Time', emoji: '⏳' },
+            'Fire+Sand': { name: 'Glass', emoji: '🔮' },
+            'Sand+Stone+Time': { name: 'Fossil', emoji: '⏳' },
+            'Air+Stone': { name: 'Sand', emoji: '🏖️' },
+            'Metal+Stone': { name: 'Armor', emoji: '🛡️' },
+            'Stone+Time': { name: 'Statue', emoji: '🗿' },
+            'Stone+Time+Water': { name: 'Fossil', emoji: '🦴' }, // 'Fossil'은 이름이 같지만 emoji가 달라 별개로 유지
+            'Stone+Water': { name: 'Pebble', emoji: '🪨' },
+            'Life+Stone+Time+Water+Wood': { name: 'Golem', emoji: '🪵🗿' },
+            'Fire+Stone+Wood': { name: 'Forge', emoji: '🔥' },
+            'Tool+Wood': { name: 'Tool', emoji: '🛠️' },
+            'Fire+Stone+Tool': { name: 'Forge', emoji: '🔥🛠️' }, // 'Forge'는 이름이 같지만 emoji가 달라 별개로 유지
+            'Kiln': { name: 'Kiln', emoji: '🏺' }, // 원본 키가 'Fire+Stone+Wood'인데, 'Forge'와 중복. 결과물이 달라 'Kiln'으로 남김
+            'Plant+Sun+Water': { name: 'Fruit', emoji: '🍎' },
+            'Plant+Sun+Time': { name: 'Tree', emoji: '🌳' }, // 'Tree'는 이름이 같지만 다른 조합이므로 첫 번째 것만 남김
+            'Tree+Time': { name: 'Old Tree', emoji: '🌲' },
+            'Paper': { name: 'Paper', emoji: '📄' },
+            'Stone+Tool': { name: 'Hammer', emoji: '🔨' },
+            'Metal+Time+Tool': { name: 'Clock', emoji: '🕰️' },
+            'Sand+Time': { name: 'Hourglass', emoji: '⏳' }, // 'Time'과 결과물 이름은 다르므로 유지
+            'Energy+Glass': { name: 'Lightbulb', emoji: '💡' },
+            'Glass+Metal': { name: 'Mirror', emoji: '🪞' },
+            'Fire+Metal+Tool': { name: 'Anvil', emoji: '⚒️' },
+            'Life+Mud': { name: 'Bacteria', emoji: '🧫' },
+            'Life+Plant': { name: 'Animal', emoji: '🐾' },
+            'Human+Tool': { name: 'Builder', emoji: '👷' },
+            'Human+Energy': { name: 'Work', emoji: '💼' },
+            'Human+Time': { name: 'Elder', emoji: '🧓' },
+            'Air+Sun+Water': { name: 'Rainbow', emoji: '🌈' },
+            'Air+Fire+Water': { name: 'Tornado', emoji: '🌪️' },
+            'Earth+Fire+Water': { name: 'Geyser', emoji: '🌋' },
+            'Air+Stone+Time': { name: 'Erosion', emoji: '🌄' },
+            'Fire+Tree': { name: 'Charcoal', emoji: '♨️' },
+            'Stone+Tree': { name: 'Wheel', emoji: '🛞' },
+            'Sun+Tree+Water': { name: 'Fruit Tree', emoji: '🍏' },
+            'Energy+Tree': { name: 'Electric Tree', emoji: '🌳⚡' },
+            'Farming Machine': { name: 'Farming Machine', emoji: '🚜' },
+            'Life+Machine': { name: 'Android', emoji: '🤖' },
+            'AI+Life': { name: 'Cyborg', emoji: '🧬🤖' }, // 'Cyborg'는 이름이 같지만 emoji가 달라 별개로 유지
+            'Machine+Sun': { name: 'Solar Panel', emoji: '🔋' },
+            'Machine+Water': { name: 'Water Pump', emoji: '💧⚙️' },
+            'Fire+Machine': { name: 'Engine', emoji: '🚂' },
+            'Air+Machine': { name: 'Air Conditioner', emoji: '❄️' },
+            'Earth+Machine': { name: 'Drill', emoji: '🛠️' },
+            'Air+Plant': { name: 'Pollen', emoji: '🌼' },
+            'Earth+Plant': { name: 'Grass', emoji: '🌾' },
+            'Metal+Water': { name: 'Rust', emoji: '🧪' },
+            'Metal+Sun': { name: 'Solar Heater', emoji: '♨️' },
+            'Air+Metal': { name: 'Antenna', emoji: '📡' },
+            'Decor': { name: 'Decor', emoji: '🪴' },
+            'Fire+Sun': { name: 'Solar Flare', emoji: '☀️🔥' },
+            'Sun+Water': { name: 'Cloud', emoji: '☁️' },
+            'Air+Earth': { name: 'Dust', emoji: '🌪️' },
+            'Earth+Sun': { name: 'Desert', emoji: '🏜️' },
+            'Earth+Stone': { name: 'Mountain', emoji: '⛰️' },
+            'Air+Sun': { name: 'Light Breeze', emoji: '🌬️☀️' },
+            'Stone+Sun': { name: 'Warm Stone', emoji: '☀️🪨' },
+            'Metal+Sun': { name: 'Solar Battery', emoji: '🔋' }, // 'Solar Panel'과 유사하지만 이름이 달라 유지
+            'Evaporation': { name: 'Evaporation', emoji: '💧☀️' },
+            'Photosynthesis': { name: 'Photosynthesis', emoji: '🌿☀️' },
+            'Machine+Stone': { name: 'Crusher', emoji: '⚙️🪨' },
+            'Irrigation System': { name: 'Irrigation System', emoji: '🚜💧☀️' }
+
+        };
+
+        let discoveredElements = JSON.parse(localStorage.getItem('discoveredElements')) || initialElements.slice();
+        let selected = [];
+        let hasSpecialCard = JSON.parse(localStorage.getItem('hasSpecialCard')) || false;
+
+        if (hasSpecialCard) {
+            document.getElementById('specialCard').classList.remove('hidden');
+        }
+
+        renderInventory();
+
+        function renderInventory() {
+            const inventory = document.getElementById('inventory');
+            inventory.innerHTML = '';
+            discoveredElements.forEach(el => {
+                const div = document.createElement('div');
+                div.className = 'element bg-white bg-opacity-80 rounded-xl shadow p-2 text-center cursor-pointer transform transition hover:scale-105';
+                div.textContent = `${el.emoji} ${el.name}`;
+                if (el.name === 'Special') {
+                    div.onclick = () => {
+                        document.getElementById('specialCard').classList.remove('hidden');
+                        hasSpecialCard = true;
+                        localStorage.setItem('hasSpecialCard', true);
+                        discoveredElements = discoveredElements.filter(e => e.name !== 'Special');
+                        saveElements();
+                        renderInventory();
+                    };
+                } else {
+                    div.onclick = () => selectElement(el);
+                }
+                inventory.appendChild(div);
+            });
+        }
+
+        function selectElement(el) {
+            if (el.singleUse) {
+                discoveredElements = discoveredElements.filter(e => e.name !== el.name);
+                saveElements();
+                renderInventory();
+            }
+            if (selected.length < 3) {
+                selected.push(el);
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            const selectedElementsDiv = document.getElementById('selectedElements');
+            selectedElementsDiv.innerHTML = '';
+            selected.forEach((el, idx) => {
+                const span = document.createElement('span');
+                span.textContent = el.emoji;
+                selectedElementsDiv.appendChild(span);
+                if (idx < selected.length - 1) {
+                    const plus = document.createElement('span');
+                    plus.textContent = '+';
+                    selectedElementsDiv.appendChild(plus);
+                }
+            });
+            document.getElementById('result').textContent = '?';
+            document.getElementById('message').textContent = '';
+        }
+
+        function mixElements() {
+            if (selected.length < 2) {
+                showModal('❗ 최소 두 개를 선택하세요!');
+                return;
+            }
+            const names = selected.map(e => e.name).sort().join('+');
+
+            const sortedCombinations = {};
+            for (const key in originalCombinations) {
+                const parts = key.split('+').sort();
+                const newKey = parts.join('+');
+                sortedCombinations[newKey] = originalCombinations[key];
+            }
+
+            const result = sortedCombinations[names];
+
+            const combineDisplay = document.getElementById('combineDisplay');
+            combineDisplay.classList.add('sparkle');
+            setTimeout(() => combineDisplay.classList.remove('sparkle'), 500);
+
+            if (result) {
+                if (!discoveredElements.find(el => el.name === result.name)) {
+                    discoveredElements.push(result);
+                    saveElements();
+                    renderInventory();
+                }
+                document.getElementById('result').textContent = result.emoji;
+                document.getElementById('message').textContent = `✨ You discovered: ${result.name}!`;
+                showModal(result.name, result.emoji);
+            } else {
+                document.getElementById('result').textContent = '❌';
+                document.getElementById('message').textContent = '❌ Combination failed!';
+                showModal('Fail!', '❌');
+            }
+            selected = [];
+            updateDisplay();
+        }
+
+        function saveElements() {
+            localStorage.setItem('discoveredElements', JSON.stringify(discoveredElements));
+        }
+
+        function resetGame() {
+            localStorage.clear();
+            discoveredElements = initialElements.slice();
+            selected = [];
+            hasSpecialCard = false;
+            document.getElementById('specialCard').classList.add('hidden');
+            updateDisplay();
+            renderInventory();
+        }
+
+        function showModal(name, emoji) {
+            const modal = document.getElementById('modal');
+            document.getElementById('modalEmoji').textContent = emoji;
+            document.getElementById('modalText').textContent = name;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 1500);
+        }
+
+        document.getElementById('modal').addEventListener('click', () => {
+            document.getElementById('modal').classList.remove('flex');
+            document.getElementById('modal').classList.add('hidden');
+        });
+
+
+
+        let currentPage = 1;
+        const itemsPerPage = 5;
+
+
+
+        function showCombinationNote() {
+            currentPage = 1;
+            renderCombinationNotePage();
+            const modal = document.getElementById("combinationNoteModal");
+            const list = document.getElementById("combinationList");
+            list.innerHTML = "";
+
+            // discoveredElements 기준으로, originalCombinations에서 만든 조합만 찾기
+            for (const key in originalCombinations) {
+                const result = originalCombinations[key];
+                if (discoveredElements.find(el => el.name === result.name)) {
+                    const item = document.createElement("div");
+                    item.className = "bg-purple-100 rounded p-2 shadow";
+                    item.textContent = `${key.replace(/\+/g, ' + ')} = ${result.name} ${result.emoji}`;
+                    list.appendChild(item);
+                }
+            }
+
+            modal.classList.remove("hidden");
+            setTimeout(() => modal.classList.remove("translate-y-full"), 10); // 올라옴
+        }
+
+
+        function renderCombinationNotePage() {
+            const list = document.getElementById("combinationList");
+            list.innerHTML = "";
+
+            const createdElements = discoveredElements.filter(el => el.createdBy);
+
+            const totalPages = Math.ceil(createdElements.length / itemsPerPage);
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const pageItems = createdElements.slice(startIdx, startIdx + itemsPerPage);
+
+            pageItems.forEach(el => {
+                const item = document.createElement("div");
+                item.className = "bg-purple-100 rounded p-2 shadow";
+                item.textContent = `${el.createdBy} = ${el.name}`;
+                list.appendChild(item);
+            });
+
+            renderPagination(totalPages);
+        }
+
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = `px-2 py-1 rounded ${i === currentPage ? 'bg-purple-500 text-white' : 'bg-gray-200'}`;
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderCombinationNotePage();
+                };
+                pagination.appendChild(btn);
+            }
+        }
+
+
+        function closeCombinationNote() {
+            const modal = document.getElementById("combinationNoteModal");
+            modal.classList.add("translate-y-full");
+            setTimeout(() => modal.classList.add("hidden"), 300); // 트랜지션 끝나고 숨김
+        }
+
+    </script>
+</body>
+
+</html>
